@@ -1,39 +1,32 @@
-\name{get_city_issues}
-\alias{get_city_issues}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\name{get_issues_by_type}
+\alias{get_issues_by_type}
 \title{
-Query all issues in a given location
+Query information about issues of a certain type or types.
 }
 \description{
-Returns all issues in the specific location, specified either by coordinates or by name/address.
+Returns all issues of a given type or types in the specified location, specified either by coordinates or by name/address.
 }
 \usage{
-get_city_issues(city, status = "open,acknowledged,closed,archived", limit = 100)
+get_issues_by_type(city, issue_type, status = "open,acknowledged,closed,archived", limit = 100)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{city}{
 A written description of the location for which issue types should be returned. If city is specified, lat/long should not be.
 }
-\item{lat}{
-Latitude of coordinates, specified instead of city.
+  \item{issue_type}{
+Type of issues which should be returned. If multiple types, they should be separated by commas and without spaces.
 }
-\item{long}{
-Longitude of coordinates, specified instead of city.
-}
-\item{status}{
+  \item{status}{
 Which status types of issues should be returned. Separate statuses should be separated by commas without spaces. Available options are open, acknowledged, closed, and archived. Default is all.
 }
   \item{limit}{
 Number of items to return. Defaults to 100.
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 \item{issue_id}{Unique ID number for the given issue}
-\item{status}{Status of the issue (open/closed)}
+\item{status}{Status of the issue (open/acknowledged/closed)}
 \item{summary}{Summary of the status for the issue}
 \item{description}{Text description of the issue as reported}
 \item{rating}{Importance rating of the issue}
@@ -66,13 +59,9 @@ Number of items to return. Defaults to 100.
 \item{reporter_avatar_square}{Square version of the avatar}
 }
 
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
-\examples{
 
+\seealso{
+\code{\link{list_issue_types}}
+\code{\link{get_issues_by_date}}
+\code{\link{get_city_issues}}
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

@@ -2,7 +2,8 @@ get_issues_by_type <- function(city, issue_type, status = "open,acknowledged,clo
   total <- 0
   page <- 1
   url <- paste("https://seeclickfix.com/api/v2/issues?place_url=",city,"&search=",issue_type,"&status=",status, "&per_page=",limit,"&page=",page,sep = "")
-  rawdata <- readLines(url, warn = F)
+  url <- gsub(" ","%20",x=url)
+  rawdata <- RCurl::getURL(url)
   scf <- jsonlite::fromJSON(txt=rawdata,simplifyDataFrame = T,flatten=F)
   
   issue_id = scf$issues$id
@@ -80,7 +81,8 @@ get_issues_by_type <- function(city, issue_type, status = "open,acknowledged,clo
     page <- page+1
     if((limit-total)<100){limit <- (limit-total)}
     url <- paste("https://seeclickfix.com/api/v2/issues?place_url=",city,"&search=",issue_type,"&status=",status, "&per_page=",limit,"&page=",page,sep = "")
-    rawdata <- readLines(url, warn = F)
+    url <- gsub(" ","%20",x=url)
+    rawdata <- RCurl::getURL(url)
     scf <- jsonlite::fromJSON(txt=rawdata,simplifyDataFrame = T,flatten=F)
     
     issue_id = scf$issues$id

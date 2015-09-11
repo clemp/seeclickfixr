@@ -2,7 +2,8 @@ list_places <- function(startingpoint,limit=100){
 	total <- 0
 	page <- 1
 	url <- paste("https://seeclickfix.com/api/v2/places?address=", startingpoint, "&per_page=",limit,"&page=",page, sep = "")
-  rawdata <- readLines(url, warn = F)
+	url <- gsub(" ","%20",x=url)
+	rawdata <- RCurl::getURL(url)
   scf <- jsonlite::fromJSON(txt=rawdata,simplifyDataFrame = T,flatten=F)
   allout <- NULL
   for(i in 1:length(scf$places$center$coordinates)){
@@ -27,7 +28,8 @@ list_places <- function(startingpoint,limit=100){
 		page <- page+1
 		if((limit-total)<100){limit <- (limit-total)}
   url <- paste("https://seeclickfix.com/api/v2/places?address=", startingpoint, "&per_page=",(limit-total),"&page=",page, sep = "")
-  rawdata <- readLines(url, warn = F)
+  url <- gsub(" ","%20",x=url)
+  rawdata <- RCurl::getURL(url)
   scf <- jsonlite::fromJSON(txt=rawdata,simplifyDataFrame = T,flatten=F)
   holder <- NULL
   for(i in 1:length(scf$places$center$coordinates)){

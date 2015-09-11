@@ -1,7 +1,8 @@
 get_specific_issue <- function(issue_id) {
   
   url <- paste("http://seeclickfix.com/api/v2/issues/", issue_id, sep = "")
-  rawdata <- readLines(url, warn = F)
+  url <- gsub(" ","%20",x=url)
+  rawdata <- RCurl::getURL(url)
   scf <- jsonlite::fromJSON(rawdata)
   
   allout <- data.frame(issue_id = scf$issues$id,

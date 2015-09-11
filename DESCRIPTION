@@ -16,4 +16,5 @@ Description: Provides a wrapper to access data from the SeeClickFix
 License: GPL-3
 Imports:
   jsonlite
+  RCurl
 

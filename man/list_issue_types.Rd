@@ -15,6 +15,12 @@ list_issue_types(city, limit = 100)
   \item{city}{
 A written description of the location for which issue types should be returned. If city is specified, lat/long should not be.
 }
+\item{lat}{
+Latitude of coordinates, specified instead of city.
+}
+\item{long}{
+Longitude of coordinates, specified instead of city.
+}
   \item{limit}{
 Number of items to return. Defaults to 100.
 }

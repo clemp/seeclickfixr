@@ -1,8 +1,17 @@
-get_city_issues <- function(city, status = "open,acknowledged,closed,archived", limit = 100) {
+get_city_issues <- function(city=NULL, lat=NULL,long=NULL, status = "open,acknowledged,closed,archived", limit = 100) {
   total <- 0
   page <- 1
-  url <- paste("https://seeclickfix.com/api/v2/issues?place_url=", city,"&status=",status, "&per_page=",limit,"&page=",page, sep = "")
-  rawdata <- readLines(url, warn = F)
+  if(length(city)>0 & (length(lat)>0 | length(long)>0)){
+    lat <- NULL
+    long <- NULL
+    warning("Cannot specify both city and lat/long locations. Using city...")
+  }
+  if((length(lat)>0 & length(long)<1) | length(lat)<1 & length(long)>0){
+    stop("Specify valid lat/long pair or city")
+  }
+  url <- paste("https://seeclickfix.com/api/v2/issues?", ifelse(length(city)>0,paste("place_url=",city,sep=""),""),ifelse(length(lat)>0,paste("lat=", lat,"&lng=",long,sep=""),""),"&status=",status, "&per_page=",limit,"&page=",page, sep = "")
+  url <- gsub(" ","%20",x=url)
+  rawdata <- RCurl::getURL(url)
   scf <- jsonlite::fromJSON(txt=rawdata,simplifyDataFrame = T,flatten=F)
   issue_id = scf$issues$id
   issue_status = scf$issues$status
