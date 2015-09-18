@@ -15,6 +15,6 @@ Description: Provides a wrapper to access data from the SeeClickFix
   standard R functions.
 License: GPL-3
 Imports:
-  jsonlite
+  jsonlite,
   RCurl
 
