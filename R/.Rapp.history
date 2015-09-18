@@ -1,0 +1,15 @@
+limit =200#
+
+total=100#
+
+(limit-total)/100#
+
+limit=230#
+
+(limit-total)/100#
+#
+
+total=200#
+
+(limit-total)%/%100#
+
